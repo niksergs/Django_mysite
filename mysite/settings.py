@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'taggit',   # Приспособленное для использования приложение, которое в первую очередь предлагает модель Tag и менеджер для удобного добавления тегов в любую модель
 
     'blog',
 ]
@@ -105,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -123,3 +126,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+"""Настройки сервера электронной почты"""
+"""Если вы не можете использовать SMTP-сервер, то можно сообщить Django, что нужно писать электронные письма в консоль,
+добавив в файл settings.py следующий ниже настроечный параметр:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'"""
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Конфигурация сервера электронной почты
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
