@@ -39,6 +39,7 @@ DEBUG = bool(int(os.environ.get('DEBUG')))
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1 # Настроечный параметр для настройки карт сайтов
 
 # Application definition
 
@@ -51,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'taggit',   # Приспособленное для использования приложение, которое в первую очередь предлагает модель Tag и менеджер для удобного добавления тегов в любую модель
+    'django.contrib.sites',     # Приложение для построения карт сайтов
+    'django.contrib.sitemaps',  # Приложение для построения карт сайтов
 
     'blog',
 ]
