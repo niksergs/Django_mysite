@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',  # Приложение для построения карт сайтов
     'django.contrib.postgres',  # PostgreSQL
 
-    'blog',
+    'blog',         # Основное приложение Блог
+    'accounts',     # Приложение для регистрации
 ]
 
 MIDDLEWARE = [
@@ -134,6 +135,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_REDIRECT_URL = "/"    # Редирект после аутентификации
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # Истечение сессии через 30 дней
 
 """Настройки сервера электронной почты"""
 """Если вы не можете использовать SMTP-сервер, то можно сообщить Django, что нужно писать электронные письма в консоль,
