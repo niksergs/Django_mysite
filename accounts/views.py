@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 from .forms import (SignUpForm,
                     LoginForm,
                     UpdateUserForm,
@@ -77,3 +78,10 @@ class CustomLoginView(LoginView):
 
         # В противном случае сеанс браузера будет таким же как время сеанса cookie "SESSION_COOKIE_AGE", определенное в settings.py
         return super(CustomLoginView, self).form_valid(form)
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    """Представление для изменения пароля"""
+    template_name = 'registration/change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('accounts:users-profile')

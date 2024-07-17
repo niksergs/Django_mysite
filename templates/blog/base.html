@@ -26,6 +26,7 @@
     <hr>
     {% if user.is_authenticated %}
         Hi {{ user.username }}!
+    <a href="{% url 'users-profile' %}">My profile</a>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <a href="#" onclick="parentNode.submit();">Log Out</a>
@@ -34,6 +35,7 @@
         <p>You are not logged in</p>
         <a href="{% url 'login' %}">Log In</a>
         <p><a href="{% url 'signup' %}">SignUp</a></p>
+        <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
     {% endif %}
     <hr>
 
