@@ -3,7 +3,33 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
-from .forms import SignUpForm, LoginForm
+from django.contrib.auth.decorators import login_required
+from .forms import (SignUpForm,
+                    LoginForm,
+                    UpdateUserForm,
+                    UpdateProfileForm,
+                    )
+
+
+@login_required
+def profile(request):
+    """Представление профиля.
+    Декоратор 'login_required' ограничивает доступ только для зарегистрированных пользователей"""
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='accounts:users-profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'registration/profile.html', {'user_form': user_form,
+                                                         'profile_form': profile_form})
 
 
 class SignUpView(generic.CreateView):

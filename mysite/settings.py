@@ -76,11 +76,14 @@ TEMPLATES = [
     },
 ]
 
+"""Полный путь к каталогу, в котором хранятся загруженные файлы."""
+MEDIA_ROOT = BASE_DIR/'media'
+
+"""Базовый URL-адрес для обслуживания медиафайлов.
+Это то, что позволяет нам получать доступ к мультимедиа через наш веб-браузер."""
+MEDIA_URL = '/media/'
+
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -92,10 +95,6 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -112,10 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
@@ -124,14 +119,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
