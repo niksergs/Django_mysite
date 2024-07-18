@@ -1,8 +1,10 @@
 from django.http import Http404
 
-from rest_framework.views import APIView  # Импорт базового класса
-from rest_framework import mixins  # Импорт миксинов
-from rest_framework import generics  # Импорт дженериков
+from rest_framework.views import APIView    # Импорт базового класса
+from rest_framework import mixins           # Импорт миксинов
+from rest_framework import generics         # Импорт дженериков
+from rest_framework import filters          # Импорт фильтров для организации поиска
+from django_filters.rest_framework import DjangoFilterBackend   # Импорт django-filter
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -108,6 +110,17 @@ class PostList(generics.ListCreateAPIView):
     на основе дженериков"""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    # Устанавливаем фильтрацию, если она не установлена по умолчанию в настройках
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['author']                   # Определяем поля подлежащие фильтрации
+    search_fields = ['body', 'author__username']    # Определяем поля поддерживающие поиск
+    # search_fields = ['body', 'author__profile__bio']
+    ordering_fields = ['author_id', 'publish']      # Определяем поля поддерживающие упорядочивание
+    ordering = ['body']                             # Определяем поля упорядочивающиеся по умолчанию
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Post.objects.filter(author=user)
 
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -115,3 +128,11 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     на основе дженериков"""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+
+class UserPostList(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        user = self.kwargs['id']
+        return Post.objects.filter(author=user)

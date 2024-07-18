@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'social_django',            # Приложение для аутентификации через соцсети 'pip install social-auth-app-django'
     'django_bootstrap5',        # Фреймворк для верстки
     'rest_framework',           # Django Rest Framework для API
+    'django_filters',           # DjangoFilterBackend для API (поддерживает высоко настраиваемую фильтрацию полей)
 
     'blog',         # Основное приложение Блог
     'accounts',     # Приложение для регистрации
@@ -166,4 +167,6 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
+    # Позволяет использовать django-filter по умолчанию
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
