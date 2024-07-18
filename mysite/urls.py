@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import PostSitemap
 from django.conf import settings
@@ -18,4 +18,5 @@ urlpatterns = [
          name='django.contrib.sitemaps.views.sitemap'),
     path('accounts/', include('accounts.urls')),                # URL для приложения регистрации
     path('accounts/', include('django.contrib.auth.urls')),     # URL авторизации
+    re_path(r'^oauth/', include('social_django.urls', namespace='social')),     # URL авторизации
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # Настройка urls.py проекта для обслуживания загруженных пользователем медиафайлов во время разработки (когда debug=True)

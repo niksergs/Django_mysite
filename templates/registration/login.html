@@ -8,4 +8,6 @@
         <p><input type="submit" value="Login"></p>
     </form>
     <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
+    <p><a href="{% url 'social:begin' 'github' %}">Log In with GitHub</a></p>
+    <p><a href="{% url 'social:begin' 'google-oauth2' %}">Log In with Google</a></p>
 {% endblock %}

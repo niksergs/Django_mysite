@@ -24,7 +24,7 @@ def profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='accounts:users-profile')
+            return redirect(to='users-profile')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
@@ -60,7 +60,7 @@ class SignUpView(generic.CreateView):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}')
 
-            return redirect(to='login') # редирект на страницу логина после регистрации
+            return redirect(to='login')     # редирект на страницу логина после регистрации
 
         return render(request, self.template_name, {'form': form})
 
