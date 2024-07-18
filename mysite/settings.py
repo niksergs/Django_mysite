@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',  # Приложение для построения карт сайтов
     'django.contrib.postgres',  # PostgreSQL
     'social_django',            # Приложение для аутентификации через соцсети 'pip install social-auth-app-django'
+    'django_bootstrap5',        # Фреймворк для верстки
 
     'blog',         # Основное приложение Блог
     'accounts',     # Приложение для регистрации
