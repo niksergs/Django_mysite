@@ -14,6 +14,7 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),                            # URL панели администратора
     path('', include('blog.urls', namespace='blog')),       # URL приложения blog
+    path('api/', include('blog_api.urls')),                     # URL приложения blog_api
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},        # URL для карты сайтов
          name='django.contrib.sitemaps.views.sitemap'),
     path('accounts/', include('accounts.urls')),                # URL для приложения регистрации

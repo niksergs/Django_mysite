@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.postgres',  # PostgreSQL
     'social_django',            # Приложение для аутентификации через соцсети 'pip install social-auth-app-django'
     'django_bootstrap5',        # Фреймворк для верстки
+    'rest_framework',           # Django Rest Framework для API
 
     'blog',         # Основное приложение Блог
     'accounts',     # Приложение для регистрации
+    'blog_api',     # Приложение Блог API
 ]
 
 MIDDLEWARE = [
@@ -159,3 +161,9 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+}
