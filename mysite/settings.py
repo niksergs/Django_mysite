@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',        # Фреймворк для верстки
     'rest_framework',           # Django Rest Framework для API
     'django_filters',           # DjangoFilterBackend для API (поддерживает высоко настраиваемую фильтрацию полей)
+    'rest_framework.authtoken', # Аутентификация с помощью токена
 
     'blog',         # Основное приложение Блог
     'accounts',     # Приложение для регистрации
@@ -165,8 +166,23 @@ EMAIL_USE_TLS = True
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
+        "rest_framework.permissions.IsAuthenticated",
     ],
     # Позволяет использовать django-filter по умолчанию
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # Иногда бывают конфликты, а именно невозможно выйти из аккаунта в нашем API.
+        # В данном случае можно отключить нашу базовую авторизацию в настройках REST_FRAMEWORK
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',    # Аутентификация с помощью токена
+        # 'rest_framework.authentication.BasicAuthentication',
+    ),
+    # Настройки пагинации для API
+    # LimitOffsetPagination - GET https://api.example.org/accounts/?limit=100&offset=400
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # PageNumberPagination - GET https://api.example.org/accounts/?page=4
+    # CursorPagination - GET
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
 }

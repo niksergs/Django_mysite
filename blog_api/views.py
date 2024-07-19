@@ -1,9 +1,11 @@
 from django.http import Http404
 
-from rest_framework.views import APIView    # Импорт базового класса
-from rest_framework import mixins           # Импорт миксинов
-from rest_framework import generics         # Импорт дженериков
-from rest_framework import filters          # Импорт фильтров для организации поиска
+from rest_framework.views import APIView        # Импорт базового класса
+from rest_framework import mixins               # Импорт миксинов
+from rest_framework import generics             # Импорт дженериков
+from rest_framework import filters              # Импорт фильтров для организации поиска
+from rest_framework import permissions          # Импорт параметров доступа к представлению
+from .permissions import IsAuthorOrReadOnly     # Импорт кастомных параметров доступа к представлению
 from django_filters.rest_framework import DjangoFilterBackend   # Импорт django-filter
 from rest_framework.response import Response
 from rest_framework import status
@@ -108,6 +110,7 @@ from .serializers import PostSerializer
 class PostList(generics.ListCreateAPIView):
     """Представление на отображение списка постов и создание экземпляра записи поста модели Post
     на основе дженериков"""
+    permission_classes = [IsAuthorOrReadOnly]       # Определяем права доступа к данному представлению
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     # Устанавливаем фильтрацию, если она не установлена по умолчанию в настройках
@@ -128,6 +131,9 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     на основе дженериков"""
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [IsAuthorOrReadOnly]  # Определяем права доступа к данному представлению
+    # Данное представление будет доступно только пользователям с правами администратора
+    # permission_classes = [permissions.IsAdminUser]    # Определяем права доступа к данному представлению
 
 
 class UserPostList(generics.ListCreateAPIView):
