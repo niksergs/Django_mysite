@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',           # Django Rest Framework для API
     'django_filters',           # DjangoFilterBackend для API (поддерживает высоко настраиваемую фильтрацию полей)
     'rest_framework.authtoken', # Аутентификация с помощью токена
+    'drf_spectacular',          # Пакет для генерации схемы OpenAPI
 
     'blog',         # Основное приложение Блог
     'accounts',     # Приложение для регистрации
@@ -174,7 +175,7 @@ REST_FRAMEWORK = {
         # Иногда бывают конфликты, а именно невозможно выйти из аккаунта в нашем API.
         # В данном случае можно отключить нашу базовую авторизацию в настройках REST_FRAMEWORK
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',    # Аутентификация с помощью токена
+        'rest_framework.authentication.TokenAuthentication',        # Аутентификация с помощью токена
         # 'rest_framework.authentication.BasicAuthentication',
     ),
     # Настройки пагинации для API
@@ -185,4 +186,12 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',   # Пакет для генерации схемы OpenAPI
+}
+
+"""Настройки пакета для генерации схемы OpenAPI"""
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Blog API Project",
+    "DESCRIPTION": "A sample blog to learn about DRF",
+    "VERSION": "1.0.0",
 }
