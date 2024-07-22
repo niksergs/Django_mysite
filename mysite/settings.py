@@ -14,17 +14,16 @@ def load_env_file(filepath):
 
 load_env_file('.env.local')
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG')))
 
+# ALLOWED_HOSTS = ['django-blog.my-domain.ru']
 ALLOWED_HOSTS = []
 
-SITE_ID = 1     # Настроечный параметр для настройки карт сайтов
+# CSRF_TRUSTED_ORIGINS = ['http://django-blog.my-domain.ru', 'https://django-blog.my-domain.ru']
 
-# Application definition
+SITE_ID = 1     # Настроечный параметр для настройки карт сайтов
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -145,6 +144,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = (BASE_DIR / 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

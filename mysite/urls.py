@@ -21,4 +21,11 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),     # URL авторизации
     re_path(r'^oauth/', include('social_django.urls', namespace='social')),     # URL авторизации через соцсети
     path('api-auth/', include("rest_framework.urls")),          # URL авторизации через Django Rest Framework
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # Настройка urls.py проекта для обслуживания загруженных пользователем медиафайлов во время разработки (когда debug=True)
+]
+
+if settings.DEBUG:
+    # Настройка urls.py проекта для обслуживания загруженных пользователем медиафайлов во время разработки (когда debug=True)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # Настройка urls.py проекта для обслуживания загруженных пользователем медиафайлов (когда debug=False)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
